@@ -1,10 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const knex = require('knex')(require('./knexfile').development);
+const knex = require('knex')(require('./knexfile'));
+const session = require('express-session');
 
 const app = express();
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/register', (req, res) => {
     // Register route
