@@ -50,33 +50,34 @@
     - **Tip**: Use `knex('users').where({ username, password }).first()` to find the user.
     - **Tip**: Send a 401 status code for invalid credentials and 200 for successful login.
 
-3. **Homepage Route**:
-    - Open `server.js`.
-    - Locate the `/homepage` route.
-    - Add logic to display the homepage content.
-    - Ensure the route is accessible only after successful login.
-    - **Exact Instructions**:
-      ```javascript
-      // Configure session middleware
-      app.use(session({
-          secret: 'keyboard cat', // Secret key for signing the session ID cookie
-          resave: false, // Do not save session if unmodified
-          saveUninitialized: true // Save uninitialized sessions
-      }));
-
-      // Middleware to check if the user is authenticated
-      const isAuthenticated = (req, res, next) => {
-          if (req.session && req.session.userId) { // Check if session and userId exist
-              return next(); // User is authenticated, proceed to the next middleware/route handler
-          } else {
-              res.status(401).send('Unauthorized'); // User is not authenticated, send 401 status
-          }
-      };
-
-      app.get('/homepage', isAuthenticated, (req, res) => {
-          res.send('<h1>Welcome to the homepage!</h1>'); // Send homepage content if user is authenticated
-      });
-      ```
+        3. **Homepage Route**:
+            - Open `server.js`.
+            - Locate the `/homepage` route.
+            - Add logic to display the homepage content.
+            - Ensure the route is accessible only after successful login.
+            - **Exact Instructions**:
+              ```javascript
+              // Configure session middleware
+              app.use(session({
+                  secret: 'keyboard cat', // Secret key for signing the session ID cookie
+                  resave: false, // Do not save session if unmodified
+                  saveUninitialized: true // Save uninitialized sessions
+              }));
+  
+              // Middleware to check if the user is authenticated
+              const isAuthenticated = (req, res, next) => {
+                  if (req.session && req.session.userId) { // Check if session and userId exist
+                      return next(); // User is authenticated, proceed to the next middleware/route handler
+                  } else {
+                      res.status(401).send('Unauthorized'); // User is not authenticated, send 401 status
+                  }
+              };
+  
+              app.get('/homepage', isAuthenticated, (req, res) => {
+              console.log("success")
+              res.sendFile(path.join(__dirname, 'homepage.html')); // Serve the homepage.html file
+              });
+              ```
 
 ## Tips and Tricks
 
